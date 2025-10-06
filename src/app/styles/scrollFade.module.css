@@ -1,0 +1,22 @@
+/* src/components/styles/scrollFade.module.css */
+
+.scrollContainer {
+    position: relative;
+  }
+
+  .scrollContainer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 80%);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* For modal that already has padding */
+  .scrollContainerWithPadding::after {
+    bottom: 24px; /* Adjust based on your padding */
+  }

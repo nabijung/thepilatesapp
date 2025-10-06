@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.3",
+    "bcryptjs": "^3.0.2",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0"
+  },
+  "scripts": {
+    "import:exercises": "node import-exercises.js",
+    "import:all": "node import-all.js",
+    "cleanup:all": "node cleanup-imported.js"
+  }
+}

@@ -1,0 +1,72 @@
+/* src/components/styles/hideScrollbar.module.css */
+
+.hideScrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
+}
+
+.hideScrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+
+/* For horizontal scroll containers */
+.scrollContainer {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Override scrollbar hiding for larger screens */
+@media (min-width: 640px) {
+  .scrollContainer {
+    scrollbar-width: thin !important;
+    -ms-overflow-style: auto !important;
+  }
+
+  .scrollContainer::-webkit-scrollbar {
+    display: block !important;
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .scrollContainer::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+
+  .scrollContainer::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+}
+
+/* Add a subtle animation to the scroll indicators */
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.scrollIndicator {
+  animation: fadeInOut 2s ease-in-out infinite;
+}

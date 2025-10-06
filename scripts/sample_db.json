@@ -1,0 +1,527 @@
+{
+    "studios": {
+        "606587743171": {
+            "created_date": "1584894943.171684",
+            "instructors": {
+                "W37gVm612hcEkPoUskL84lYtf1W2": {
+                    "instructor_id": "W37gVm612hcEkPoUskL84lYtf1W2"
+                },
+                "0nA9mgkiTbUQJo0GUdY8nbGirWM2": {
+                    "instructor_id": "0nA9mgkiTbUQJo0GUdY8nbGirWM2"
+                }
+            },
+            "location": "New York",
+            "students": {
+                "-M7IkHbMXHXqZO1IPBLH": {
+                    "student_id": "-M7IkHbMXHXqZO1IPBLH"
+                },
+                "-M7jqAbV_hkoC4pjICVZ": {
+                    "student_id": "-M7jqAbV_hkoC4pjICVZ"
+                },
+                "-M80o5_xyi-TUSv2RUjM": {
+                    "student_id": "-M80o5_xyi-TUSv2RUjM"
+                }
+            },
+            "studio_id": "606587743171",
+            "studio_name": "Benny's Studio"
+        },
+        "61126052953": {
+            "created_date": "1589567729.538958",
+            "instructors": {
+                "W9n7RbOH3FY59kUn68fjY53lPOV2": {
+                    "instructor_id": "W9n7RbOH3FY59kUn68fjY53lPOV2"
+                }
+            },
+            "location": "Miami",
+            "students": {
+                "-M7OezO9W9oYGmGHgFwH": {
+                    "student_id": "-M7OezO9W9oYGmGHgFwH"
+                },
+                "-M80o5_xyi-TUSv2RUjM": {
+                    "student_id": "-M80o5_xyi-TUSv2RUjM"
+                }
+            },
+            "studio_id": "61126052953",
+            "studio_name": "Luciana's Studio"
+        },
+        "64141878024": {
+            "created_date": "1619725912.0509892",
+            "instructors": {
+                "0u6Ia0YeYeNNbKplt3zKq7Yt7VF2": {
+                    "instructor_id": "0u6Ia0YeYeNNbKplt3zKq7Yt7VF2"
+                }
+            },
+            "location": "Paris",
+            "students": {
+                "-MParis123456789": {
+                    "student_id": "-MParis123456789"
+                }
+            },
+            "studio_id": "64141878024",
+            "studio_name": "Julie's Pilates"
+        },
+        "66572300967": {
+            "created_date": "1644030179.971778",
+            "instructors": {
+                "0nA9mgkiTbUQJo0GUdY8nbGirWM2": {
+                    "instructor_id": "0nA9mgkiTbUQJo0GUdY8nbGirWM2"
+                }
+            },
+            "location": "San Francisco",
+            "students": {
+                "-MSanFran12345678": {
+                    "student_id": "-MSanFran12345678"
+                }
+            },
+            "studio_id": "66572300967",
+            "studio_name": "Chen Pilates Studio"
+        }
+    },
+    "students": {
+        "-M7IkHbMXHXqZO1IPBLH": {
+            "birthday": 807422400,
+            "created_date": 1589469325.781594,
+            "current_studio": "606587743171",
+            "first_name": "Marissa",
+            "height": "5'5\"",
+            "job": "Actress",
+            "email": "marissatomei@gmail.com",
+            "last_name": "Tomei",
+            "pathologies": "Asthma",
+            "review_date": 1617816000,
+            "set_date": 1605291655.2253032,
+            "studios_attending": {
+                "606587743171": {
+                    "goals": {
+                        "goal": "Marisa wants less pain in her back. She like to also lose some weight. "
+                    },
+                    "lessons": {
+                        "L61496861716": {
+                            "L61496861716": "lesson_id",
+                            "completed": false
+                        },
+                        "L62638635839": {
+                            "L62638635839": "lesson_id",
+                            "completed": false
+                        }
+                    }
+                }
+            },
+            "user_id": "-M7IkHbMXHXqZO1IPBLH"
+        },
+        "-M7OezO9W9oYGmGHgFwH": {
+            "created_date": 1589568599.650137,
+            "current_studio": "61126052953",
+            "first_name": "Stacy",
+            "last_name": "Abrhams",
+            "email": "stacyabrams@gmail.com",
+            "review_date": 1590438986,
+            "set_date": 1589834191.0238528,
+            "studios_attending": {
+                "61126052953": {
+                    "lessons": {
+                        "L61167966050": {
+                            "L61167966050": "lesson_id",
+                            "completed": false
+                        }
+                    }
+                }
+            },
+            "user_id": "-M7OezO9W9oYGmGHgFwH"
+        },
+        "-M7jqAbV_hkoC4pjICVZ": {
+            "created_date": 1589940632.049721,
+            "current_studio": "606587743171",
+            "first_name": "Rachel",
+            "last_name": "Matthews",
+            "review_date": 1606667884,
+            "set_date": 1596037086.873808,
+            "studios_attending": {
+                "606587743171": {
+                    "lessons": {
+                        "L62257386712": {
+                            "L62257386712": "lesson_id",
+                            "completed": true
+                        }
+                    }
+                }
+            },
+            "user_id": "-M7jqAbV_hkoC4pjICVZ"
+        },
+        "-M80o5_xyi-TUSv2RUjM": {
+            "created_date": 1590508654.267478,
+            "current_studio": "61126052953",
+            "first_name": "John",
+            "last_name": "Smith",
+            "review_date": 1590508654.267478,
+            "set_date": 1590508654.267478,
+            "studios_attending": {
+                "61126052953": {
+                    "lessons": {
+                        "L61168075903": {
+                            "L61168075903": "lesson_id",
+                            "completed": true
+                        }
+                    }
+                },
+                "606587743171": {
+                    "goals": {
+                        "goal": "John wants to improve his posture."
+                    }
+                }
+            },
+            "user_id": "-M80o5_xyi-TUSv2RUjM"
+        },
+        "-MParis123456789": {
+            "created_date": 1619726000.000000,
+            "current_studio": "64141878024",
+            "first_name": "Sophie",
+            "last_name": "Martin",
+            "review_date": 1619726000.000000,
+            "set_date": 1619726000.000000,
+            "studios_attending": {
+                "64141878024": {
+                    "lessons": {
+                        "L64141900000": {
+                            "L64141900000": "lesson_id",
+                            "completed": false
+                        }
+                    }
+                }
+            },
+            "user_id": "-MParis123456789"
+        },
+        "-MSanFran12345678": {
+            "created_date": 1644030200.000000,
+            "current_studio": "66572300967",
+            "first_name": "David",
+            "last_name": "Chang",
+            "review_date": 1644030200.000000,
+            "set_date": 1644030200.000000,
+            "studios_attending": {
+                "66572300967": {
+                    "lessons": {
+                        "L66572400000": {
+                            "L66572400000": "lesson_id",
+                            "completed": false
+                        }
+                    }
+                }
+            },
+            "user_id": "-MSanFran12345678"
+        }
+    },
+    "instructors": {
+        "W37gVm612hcEkPoUskL84lYtf1W2": {
+            "created_date": "1584894943.171684",
+            "current_studio": "606587743171",
+            "email": "nabi.jung@example.com",
+            "first_name": "Nabi",
+            "last_name": "Jung",
+            "studios": {
+                "606587743171": {
+                    "studio_id": "606587743171"
+                }
+            },
+            "user_id": "W37gVm612hcEkPoUskL84lYtf1W2"
+        },
+        "W9n7RbOH3FY59kUn68fjY53lPOV2": {
+            "created_date": "1589567729.538958",
+            "current_studio": "61126052953",
+            "email": "luciana@example.com",
+            "first_name": "Luciana",
+            "last_name": "Smith",
+            "studios": {
+                "61126052953": {
+                    "studio_id": "61126052953"
+                }
+            },
+            "user_id": "W9n7RbOH3FY59kUn68fjY53lPOV2"
+        },
+        "0u6Ia0YeYeNNbKplt3zKq7Yt7VF2": {
+            "created_date": "1619725912.0509892",
+            "current_studio": "64141878024",
+            "email": "julie.rodier@example.com",
+            "first_name": "Julie",
+            "last_name": "Rodier",
+            "studios": {
+                "64141878024": {
+                    "studio_id": "64141878024"
+                }
+            },
+            "user_id": "0u6Ia0YeYeNNbKplt3zKq7Yt7VF2"
+        },
+        "0nA9mgkiTbUQJo0GUdY8nbGirWM2": {
+            "created_date": "1644030179.971778",
+            "current_studio": "66572300967",
+            "email": "yunglichen@example.com",
+            "first_name": "Yung-Li",
+            "last_name": "Chen",
+            "studios": {
+                "66572300967": {
+                    "studio_id": "66572300967"
+                },
+                "606587743171": {
+                    "studio_id": "606587743171"
+                }
+            },
+            "user_id": "0nA9mgkiTbUQJo0GUdY8nbGirWM2"
+        }
+    },
+    "lessons": {
+        "606587743171": {
+            "L61496861716": {
+                "created_date": "1605726086.231645",
+                "instructions": "Make sure you are on a soft floor or cushy mat. Put a pillow under your head for support.",
+                "lesson_id": "L61496861716",
+                "level": "beginner",
+                "reps": "5 each side",
+                "studio_id": "606587743171",
+                "title": "Pre Pilates Exercise",
+                "video_url": "https://m.youtube.com/watch?v=awf9qL_T570"
+            },
+            "L62257386712": {
+                "created_date": "1600881098.933012",
+                "instructions": "Here are some instructions.",
+                "lesson_id": "L62257386712",
+                "level": "intermediate",
+                "reps": "5",
+                "studio_id": "606587743171",
+                "title": "Back stretch",
+                "video_url": ""
+            },
+            "L62638635839": {
+                "created_date": "1605287993.98143",
+                "instructions": "This is the basic workout we've done in class already. \nDon't forget to have fun!",
+                "lesson_id": "L62638635839",
+                "level": "beginner",
+                "reps": "5",
+                "studio_id": "606587743171",
+                "title": "Basic Workout",
+                "video_url": ""
+            }
+        },
+        "61126052953": {
+            "L61167966050": {
+                "created_date": "1589986890.485334",
+                "instructions": "Type instructions here...",
+                "lesson_id": "L61167966050",
+                "level": "beginner",
+                "reps": "10",
+                "studio_id": "61126052953",
+                "title": "beginner lesson",
+                "video_url": ""
+            },
+            "L61168075903": {
+                "created_date": "1589987994.137251",
+                "instructions": "Type instructions here...",
+                "lesson_id": "L61168075903",
+                "level": "advanced",
+                "reps": "4",
+                "studio_id": "61126052953",
+                "title": "New Lesson",
+                "video_url": ""
+            }
+        },
+        "64141878024": {
+            "L64141900000": {
+                "created_date": "1619726100.000000",
+                "instructions": "Focus on controlled breathing throughout the exercise.",
+                "lesson_id": "L64141900000",
+                "level": "beginner",
+                "reps": "10",
+                "studio_id": "64141878024",
+                "title": "French Pilates Basics",
+                "video_url": ""
+            }
+        },
+        "66572300967": {
+            "L66572400000": {
+                "created_date": "1644030300.000000",
+                "instructions": "Maintain proper form during each repetition.",
+                "lesson_id": "L66572400000",
+                "level": "intermediate",
+                "reps": "8",
+                "studio_id": "66572300967",
+                "title": "Core Strengthening",
+                "video_url": ""
+            }
+        }
+    },
+    "notebooks": {
+        "-M7IkHbMXHXqZO1IPBLH": {
+            "N61239162803": {
+                "created_date": "1590698828.081182",
+                "entries": {
+                    "E61239167637": {
+                        "entry_id": "E61239167637"
+                    },
+                    "E61482604674": {
+                        "entry_id": "E61482604674"
+                    }
+                },
+                "notebook_id": "N61239162803",
+                "student_id": "-M7IkHbMXHXqZO1IPBLH",
+                "studio_id": "606587743171"
+            }
+        },
+        "-M7OezO9W9oYGmGHgFwH": {
+            "N61220181868": {
+                "created_date": "1590509019.275653",
+                "entries": {
+                    "E61220183697": {
+                        "entry_id": "E61220183697"
+                    }
+                },
+                "notebook_id": "N61220181868",
+                "student_id": "-M7OezO9W9oYGmGHgFwH",
+                "studio_id": "61126052953"
+            }
+        },
+        "-M7jqAbV_hkoC4pjICVZ": {
+            "N61239066827": {
+                "created_date": "1590697868.327173",
+                "entries": {
+                    "E61239188492": {
+                        "entry_id": "E61239188492"
+                    }
+                },
+                "notebook_id": "N61239066827",
+                "student_id": "-M7jqAbV_hkoC4pjICVZ",
+                "studio_id": "606587743171"
+            }
+        },
+        "-M80o5_xyi-TUSv2RUjM": {
+            "N61220145408": {
+                "created_date": "1590508654.267478",
+                "entries": {
+                    "E61220203504": {
+                        "entry_id": "E61220203504"
+                    }
+                },
+                "notebook_id": "N61220145408",
+                "student_id": "-M80o5_xyi-TUSv2RUjM",
+                "studio_id": "61126052953"
+            }
+        },
+        "-MParis123456789": {
+            "N64141900001": {
+                "created_date": "1619726300.000000",
+                "entries": {
+                    "E64141900002": {
+                        "entry_id": "E64141900002"
+                    }
+                },
+                "notebook_id": "N64141900001",
+                "student_id": "-MParis123456789",
+                "studio_id": "64141878024"
+            }
+        },
+        "-MSanFran12345678": {
+            "N66572400001": {
+                "created_date": "1644030500.000000",
+                "entries": {
+                    "E66572400002": {
+                        "entry_id": "E66572400002"
+                    }
+                },
+                "notebook_id": "N66572400001",
+                "student_id": "-MSanFran12345678",
+                "studio_id": "66572300967"
+            }
+        }
+    },
+    "entries": {
+        "E61239167637": {
+            "contents": "Marisa wants less pain in her back. She like to also lose some weight.",
+            "created_date": 1590698900.000000,
+            "entry_id": "E61239167637",
+            "studio_id": "",
+            "title": "Initial Assessment"
+        },
+        "E61482604674": {
+            "contents": "Working on core strengthening exercises. Back pain has decreased.",
+            "created_date": 1592900000.000000,
+            "entry_id": "E61482604674",
+            "studio_id": "",
+            "title": "Progress Update"
+        },
+        "E61220183697": {
+            "contents": "Stacy is focusing on improving flexibility and posture.",
+            "created_date": 1590509100.000000,
+            "entry_id": "E61220183697",
+            "studio_id": "61126052953",
+            "title": "First Session Notes"
+        },
+        "E61239188492": {
+            "contents": "Rachel is a beginner. We focused on basic movements and proper breathing techniques.",
+            "created_date": 1590697900.000000,
+            "entry_id": "E61239188492",
+            "studio_id": "606587743171",
+            "title": "Initial Session"
+        },
+        "E61220203504": {
+            "contents": "John has some lower back issues we need to address carefully.",
+            "created_date": 1590508700.000000,
+            "entry_id": "E61220203504",
+            "studio_id": "61126052953",
+            "title": "Assessment"
+        },
+        "E64141900002": {
+            "contents": "Sophie has excellent body awareness. We will focus on advanced techniques next time.",
+            "created_date": 1619726400.000000,
+            "entry_id": "E64141900002",
+            "studio_id": "64141878024",
+            "title": "Premier Cours"
+        },
+        "E66572400002": {
+            "contents": "David shows good potential but needs to work on his core strength.",
+            "created_date": 1644030600.000000,
+            "entry_id": "E66572400002",
+            "studio_id": "66572300967",
+            "title": "First Session"
+        }
+    },
+    "exerciseDataLists": {
+        "pilates_mat": {
+            "data": [
+                {
+                    "name": "100"
+                },
+                {
+                    "name": "ROLL UP"
+                },
+                {
+                    "name": "ROLL OVER"
+                },
+                {
+                    "name": "SINGLE LEG CIRCLES"
+                },
+                {
+                    "name": "ROLLING LIKE A BALL"
+                }
+            ],
+            "title": "Pilates Mat"
+        },
+        "pilates_cadillac": {
+            "data": [
+                {
+                    "name": "ROLLING BACK/ONE ARM"
+                },
+                {
+                    "name": "LEG SPRINGS - CIRCLES"
+                },
+                {
+                    "name": "LEG SPRINGS - WALKING"
+                },
+                {
+                    "name": "LEG SPRINGS - BEATS"
+                },
+                {
+                    "name": "LEG SPRINGS - FROG"
+                }
+            ],
+            "title": "Pilates Cadillac"
+        }
+    }
+}
