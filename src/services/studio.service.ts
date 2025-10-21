@@ -364,6 +364,11 @@ export const changeInstructorStudio = async (instructorId: string, newStudioId: 
     .eq('is_approved', true)
     .single();
 
+    console.log('instructorStudio');
+    console.log(instructorStudio);
+    console.log('instructorError');
+    console.log(instructorError);
+
   if (instructorError || !instructorStudio) {
     return false;
   }
@@ -375,6 +380,11 @@ export const changeInstructorStudio = async (instructorId: string, newStudioId: 
     .eq('student_id', clientId)
     .eq('studio_id', studioId)
     .single();
+
+    console.log('clientStudio');
+    console.log(clientStudio);
+    console.log('clientError')
+    console.log(clientError)
 
   if (clientError || !clientStudio) {
     return false;
