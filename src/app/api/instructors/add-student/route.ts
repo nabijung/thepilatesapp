@@ -7,13 +7,14 @@ import { ServiceError } from '@/types/index';
 
 export async function POST(request: NextRequest) {
   try {
+
     const body = await request.json();
     const { firstName, lastName, email, studioId } = body;
 
     if (!firstName || !lastName || !email || !studioId) {
       return NextResponse.json(
-        { success: false, message: 'Missing required fields' },
-        { status: 400 }
+          { success: false, message: 'Missing required fields' },
+          { status: 400 }
       );
     }
 
@@ -40,11 +41,11 @@ export async function POST(request: NextRequest) {
     });
   } catch (error: unknown) {
     const err = error as ServiceError;
-    console.error('API error:', error);
+    console.error(`[add-student] API error:`, error);
 
     return NextResponse.json(
-      { success: false, message: err.message || 'Failed to add student' },
-      { status: 500 }
+        { success: false, message: err.message || 'Failed to add student' },
+        { status: 500 }
     );
   }
 }
