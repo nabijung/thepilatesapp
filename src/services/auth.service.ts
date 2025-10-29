@@ -37,10 +37,10 @@ const generateToken = (email: string, userType:UserType): string => {
 /**
  * Verify a JWT token
  */
-export const verifyToken = (token: string): { email: string } | null => {
+export const verifyToken = (token: string): { email: string; userType: UserType } | null => {
   try {
     const jwtSecret = process.env.JWT_SECRET || '';
-    const decoded = verify(token, jwtSecret) as { email: string };
+    const decoded = verify(token, jwtSecret) as { email: string; userType: UserType };
 
     return decoded;
   } catch (error) {
@@ -52,8 +52,8 @@ export const verifyToken = (token: string): { email: string } | null => {
  * Register a new user
  */
 export const signUpUser = async (
-  userType: UserType,
-  userData: SignUpData
+    userType: UserType,
+    userData: SignUpData
 ): Promise<unknown> => {
   // Normalize email to lowercase before checking or storing
   const normalizedEmail = userData.email.toLowerCase();
@@ -64,20 +64,20 @@ export const signUpUser = async (
   if (userData.studioId) {
     // First try to find the studio by short_id
     const { data: studioByShort, error: shortIdError } = await supabase
-      .from('studio')
-      .select('studio_id')
-      .eq('short_id', userData.studioId)
-      .single();
+        .from('studio')
+        .select('studio_id')
+        .eq('short_id', userData.studioId)
+        .single();
 
     if (studioByShort) {
       fullStudioId = studioByShort.studio_id;
     } else {
       // If not found by short_id, try as a full UUID
       const { data: studioByFull, error: fullIdError } = await supabase
-        .from('studio')
-        .select('studio_id')
-        .eq('studio_id', userData.studioId)
-        .single();
+          .from('studio')
+          .select('studio_id')
+          .eq('studio_id', userData.studioId)
+          .single();
 
       if (studioByFull) {
         fullStudioId = studioByFull.studio_id;
@@ -104,20 +104,20 @@ export const signUpUser = async (
   // Insert into the appropriate table with normalized email
   if (userType === 'student') {
     const { data, error } = await supabase
-      .from('student')
-      .insert({
-        first_name: userData.firstName,
-        last_name: userData.lastName,
-        email: normalizedEmail, // Store lowercase email
-        password: hashedPassword,
-        age: userData.age || null,
-        height: userData.height || null,
-        weight: userData.weight || null,
-        pathologies: userData.pathologies || null,
-        occupation: userData.occupation || null
-      })
-      .select()
-      .single();
+        .from('student')
+        .insert({
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          email: normalizedEmail, // Store lowercase email
+          password: hashedPassword,
+          age: userData.age || null,
+          height: userData.height || null,
+          weight: userData.weight || null,
+          pathologies: userData.pathologies || null,
+          occupation: userData.occupation || null
+        })
+        .select()
+        .single();
 
     if (error) throw error;
 
@@ -182,10 +182,23 @@ export const signOutUser = async (): Promise<void> => {
  * Get the current logged in user by token
  */
 export const getUserFromToken = async (token: string): Promise<{ userType: UserType, user: Student | Instructor } | null> => {
-  const decoded = verifyToken(token);
-  if (!decoded || !decoded.email) {
+  try {
+    const jwtSecret = process.env.JWT_SECRET || '';
+    const decoded = verify(token, jwtSecret) as { email: string; userType: UserType };
+
+    if (!decoded?.email || !decoded?.userType) {
+      return null;
+    }
+
+    // Use userType from JWT to get correct user record
+    const user = await getUserByEmailAndType(decoded.email, decoded.userType);
+    if (!user) return null;
+
+    return {
+      userType: decoded.userType,
+      user: user as Student | Instructor
+    };
+  } catch (error) {
     return null;
   }
-
-  return await getUserByEmail(decoded.email);
 };

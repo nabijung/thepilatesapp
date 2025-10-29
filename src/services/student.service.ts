@@ -28,10 +28,10 @@ export interface Student {
  */
 export const getStudentById = async (studentId: string): Promise<Student | null> => {
   const { data, error } = await supabase
-    .from('student')
-    .select('*')
-    .eq('id', studentId)
-    .single();
+      .from('student')
+      .select('*')
+      .eq('id', studentId)
+      .single();
 
   if (error) throw error;
 
@@ -41,12 +41,12 @@ export const getStudentById = async (studentId: string): Promise<Student | null>
 /**
  * Update student details, optionally including studio-specific goals
  */
- export const updateStudent = async (
-  studentId: string,
-  studentData: Partial<Student> & {
-    goals?: string | null;
-    studioStudentId?: string;
-  }
+export const updateStudent = async (
+    studentId: string,
+    studentData: Partial<Student> & {
+      goals?: string | null;
+      studioStudentId?: string;
+    }
 ): Promise<Student> => {
   // Create a copy of the data to avoid modifying the original
   const processedData = { ...studentData };
@@ -70,20 +70,20 @@ export const getStudentById = async (studentId: string): Promise<Student | null>
 
   // Update the student record
   const { data, error } = await supabase
-    .from('student')
-    .update(basicStudentData)
-    .eq('id', studentId)
-    .select()
-    .single();
+      .from('student')
+      .update(basicStudentData)
+      .eq('id', studentId)
+      .select()
+      .single();
 
   if (error) throw error;
 
   // If goals and studioStudentId are provided, update the studio_student relationship
   if (goals !== undefined && studioStudentId) {
     const { error: relationError } = await supabase
-      .from('studio_student')
-      .update({ goals })
-      .eq('studio_student_id', studioStudentId);
+        .from('studio_student')
+        .update({ goals })
+        .eq('studio_student_id', studioStudentId);
 
     if (relationError) throw relationError;
   }
@@ -96,10 +96,10 @@ export const getStudentById = async (studentId: string): Promise<Student | null>
  */
 export const getStudioStudents = async (studioId: string): Promise<Student[]> => {
   const { data, error } = await supabase
-    .from('studio_student')
-    .select('student_id')
-    .eq('studio_id', studioId)
-    .eq('is_approved', true);
+      .from('studio_student')
+      .select('student_id')
+      .eq('studio_id', studioId)
+      .eq('is_approved', true);
 
   if (error) throw error;
 
@@ -107,9 +107,9 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
     const studentIds = data.map(item => item.student_id);
 
     const { data: students, error: studentError } = await supabase
-      .from('student')
-      .select('*')
-      .in('id', studentIds);
+        .from('student')
+        .select('*')
+        .in('id', studentIds);
 
     if (studentError) throw studentError;
 
@@ -125,21 +125,25 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
  * Create a student account by instructor
  * This creates a student account with a random password and associates them with the studio
  */
- export const createStudentByInstructor = async (
-  studioId: string,
-  firstName: string,
-  lastName: string,
-  email: string
+export const createStudentByInstructor = async (
+    studioId: string,
+    firstName: string,
+    lastName: string,
+    email: string
 ): Promise<{ student: Student; studioStudentId: string }> => {
   // Normalize email to lowercase
   const normalizedEmail = email.toLowerCase();
 
   // Check if student already exists
-  const { data: existingStudent } = await supabase
-    .from('student')
-    .select('id')
-    .eq('email', normalizedEmail)
-    .single();
+  const { data: existingStudent, error: checkError } = await supabase
+      .from('student')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single();
+
+  if (checkError && checkError.code !== 'PGRST116') {
+    throw checkError;
+  }
 
   let studentId: string;
 
@@ -153,39 +157,47 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
 
     // Create new student
     const { data: newStudent, error: createError } = await supabase
-      .from('student')
-      .insert({
-        first_name: firstName,
-        last_name: lastName,
-        email: normalizedEmail,
-        password: hashedPassword,
-        temp_password: true // Mark as having a temporary password
-      })
-      .select()
-      .single();
+        .from('student')
+        .insert({
+          first_name: firstName,
+          last_name: lastName,
+          email: normalizedEmail,
+          password: hashedPassword,
+          temp_password: true // Mark as having a temporary password
+        })
+        .select()
+        .single();
 
-    if (createError) throw createError;
+    if (createError) {
+      throw createError;
+    }
 
     studentId = newStudent.id;
   }
 
   // Check if student-studio relationship already exists
-  const { data: existingRelation } = await supabase
-    .from('studio_student')
-    .select('studio_student_id')
-    .eq('student_id', studentId)
-    .eq('studio_id', studioId)
-    .single();
+  const { data: existingRelation, error: relationCheckError } = await supabase
+      .from('studio_student')
+      .select('studio_student_id')
+      .eq('student_id', studentId)
+      .eq('studio_id', studioId)
+      .single();
+
+  if (relationCheckError && relationCheckError.code !== 'PGRST116') {
+    throw relationCheckError;
+  }
 
   if (existingRelation) {
     // Relationship exists, return student with relation ID
     const { data: student, error: fetchError } = await supabase
-      .from('student')
-      .select('*')
-      .eq('id', studentId)
-      .single();
+        .from('student')
+        .select('*')
+        .eq('id', studentId)
+        .single();
 
-    if (fetchError) throw fetchError;
+    if (fetchError) {
+      throw fetchError;
+    }
 
     return {
       student,
@@ -195,25 +207,29 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
 
   // Create new studio-student relationship
   const { data: relation, error: relationError } = await supabase
-    .from('studio_student')
-    .insert({
-      student_id: studentId,
-      studio_id: studioId,
-      is_approved: true // Auto-approve students added by instructors
-    })
-    .select()
-    .single();
+      .from('studio_student')
+      .insert({
+        student_id: studentId,
+        studio_id: studioId,
+        is_approved: true // Auto-approve students added by instructors
+      })
+      .select()
+      .single();
 
-  if (relationError) throw relationError;
+  if (relationError) {
+    throw relationError;
+  }
 
   // Fetch the full student record
   const { data: student, error: fetchError } = await supabase
-    .from('student')
-    .select('*')
-    .eq('id', studentId)
-    .single();
+      .from('student')
+      .select('*')
+      .eq('id', studentId)
+      .single();
 
-  if (fetchError) throw fetchError;
+  if (fetchError) {
+    throw fetchError;
+  }
 
   // TODO: Send email notification to student with login instructions
   // This would be implemented with your email service
@@ -229,11 +245,11 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
  * Updates an existing user with a new password when they sign up through the manual process
  * Requires a valid studioId for students
  */
- export const setPasswordForExistingUser = async (
-  email: string,
-  password: string,
-  userType: UserType,
-  studioId: string | null // Studio ID (full UUID) already validated in the API route
+export const setPasswordForExistingUser = async (
+    email: string,
+    password: string,
+    userType: UserType,
+    studioId: string | null // Studio ID (full UUID) already validated in the API route
 ): Promise<unknown> => {
   // Normalize email to lowercase
   const normalizedEmail = email.toLowerCase();
@@ -244,14 +260,14 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
   // Update user password based on type
   if (userType === 'student') {
     const { data: student, error: updateError } = await supabase
-      .from('student')
-      .update({
-        password: hashedPassword,
-        temp_password: false
-      })
-      .eq('email', normalizedEmail)
-      .select()
-      .single();
+        .from('student')
+        .update({
+          password: hashedPassword,
+          temp_password: false
+        })
+        .eq('email', normalizedEmail)
+        .select()
+        .single();
 
     if (updateError) throw updateError;
 
@@ -259,21 +275,21 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
     if (studioId) {
       // Check if relationship already exists
       const { data: existingRelation } = await supabase
-        .from('studio_student')
-        .select('*')
-        .eq('student_id', student.id)
-        .eq('studio_id', studioId)
-        .single();
+          .from('studio_student')
+          .select('*')
+          .eq('student_id', student.id)
+          .eq('studio_id', studioId)
+          .single();
 
       if (!existingRelation) {
         // Create new relationship
         await supabase
-          .from('studio_student')
-          .insert({
-            student_id: student.id,
-            studio_id: studioId,
-            is_approved: false // Require approval for self-signup
-          });
+            .from('studio_student')
+            .insert({
+              student_id: student.id,
+              studio_id: studioId,
+              is_approved: false // Require approval for self-signup
+            });
       }
     }
 
@@ -281,14 +297,14 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
   } else {
     // Handle instructor password update
     const { data: instructor, error: updateError } = await supabase
-      .from('instructor')
-      .update({
-        password: hashedPassword,
-        temp_password: false
-      })
-      .eq('email', normalizedEmail)
-      .select()
-      .single();
+        .from('instructor')
+        .update({
+          password: hashedPassword,
+          temp_password: false
+        })
+        .eq('email', normalizedEmail)
+        .select()
+        .single();
 
     if (updateError) throw updateError;
 
@@ -296,21 +312,21 @@ export const getStudioStudents = async (studioId: string): Promise<Student[]> =>
     if (studioId) {
       // Check if relationship already exists
       const { data: existingRelation } = await supabase
-        .from('studio_instructor')
-        .select('*')
-        .eq('instructor_id', instructor.id)
-        .eq('studio_id', studioId)
-        .single();
+          .from('studio_instructor')
+          .select('*')
+          .eq('instructor_id', instructor.id)
+          .eq('studio_id', studioId)
+          .single();
 
       if (!existingRelation) {
         // Create new relationship
         await supabase
-          .from('studio_instructor')
-          .insert({
-            instructor_id: instructor.id,
-            studio_id: studioId,
-            is_approved: false // Require approval for self-signup
-          });
+            .from('studio_instructor')
+            .insert({
+              instructor_id: instructor.id,
+              studio_id: studioId,
+              is_approved: false // Require approval for self-signup
+            });
       }
     }
 
@@ -332,10 +348,10 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
 
   // Check student table
   const { data: student } = await supabase
-    .from('student')
-    .select('id')
-    .eq('email', normalizedEmail)
-    .single();
+      .from('student')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single();
 
   if (student) {
     return { exists: true, userType: 'student' };
@@ -343,10 +359,10 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
 
   // Check instructor table
   const { data: instructor } = await supabase
-    .from('instructor')
-    .select('id')
-    .eq('email', normalizedEmail)
-    .single();
+      .from('instructor')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single();
 
   if (instructor) {
     return { exists: true, userType: 'instructor' };
@@ -361,9 +377,9 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
  * @param userType Optional - filter by user type (student or instructor)
  * @returns Object indicating if user exists and what type they are
  */
- export const checkUserExistsByType = async (
-  email: string,
-  userType?: UserType
+export const checkUserExistsByType = async (
+    email: string,
+    userType?: UserType
 ): Promise<{ exists: boolean; userType?: UserType }> => {
   // Normalize email to lowercase
   const normalizedEmail = email.toLowerCase();
@@ -371,20 +387,20 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
   // If userType is specified, only check that specific table
   if (userType === 'student') {
     const { data: student } = await supabase
-      .from('student')
-      .select('id')
-      .eq('email', normalizedEmail)
-      .single();
+        .from('student')
+        .select('id')
+        .eq('email', normalizedEmail)
+        .single();
 
     return { exists: !!student, userType: student ? 'student' : undefined };
   }
 
   if (userType === 'instructor') {
     const { data: instructor } = await supabase
-      .from('instructor')
-      .select('id')
-      .eq('email', normalizedEmail)
-      .single();
+        .from('instructor')
+        .select('id')
+        .eq('email', normalizedEmail)
+        .single();
 
     return { exists: !!instructor, userType: instructor ? 'instructor' : undefined };
   }
@@ -392,10 +408,10 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
   // If no userType is specified, check both tables
   // First check student table
   const { data: student } = await supabase
-    .from('student')
-    .select('id')
-    .eq('email', normalizedEmail)
-    .single();
+      .from('student')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single();
 
   if (student) {
     return { exists: true, userType: 'student' };
@@ -403,10 +419,10 @@ export const checkUserExists = async (email: string): Promise<{ exists: boolean;
 
   // Then check instructor table
   const { data: instructor } = await supabase
-    .from('instructor')
-    .select('id')
-    .eq('email', normalizedEmail)
-    .single();
+      .from('instructor')
+      .select('id')
+      .eq('email', normalizedEmail)
+      .single();
 
   if (instructor) {
     return { exists: true, userType: 'instructor' };
